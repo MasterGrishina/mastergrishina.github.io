@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Парикмахер универсал 3 разряда | Анастасия Гришина</title>
+    <title>Обучение на Парикмахера универсала 3 разряда</title>
     
     <!-- Иконки -->
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -32,13 +32,13 @@
         .black-btn {
             background-color: #111111;
             color: white;
-            transition: all 0.4s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         /* При нажатии меняется на мягкий зелёный */
         .black-btn:active {
             background-color: #0f766e;
-            transform: scale(0.97);
+            transform: scale(0.96);
         }
         
         .black-btn:hover {
@@ -49,12 +49,17 @@
         .hero-btn {
             background-color: white;
             color: #111111;
-            transition: all 0.4s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
+
+        .hero-btn:hover {
+            background-color: #f1f1f1;
+        }
+        
         .hero-btn:active {
             background-color: #0f766e;
             color: white;
-            transform: scale(0.97);
+            transform: scale(0.96);
         }
     </style>
 </head>
@@ -190,7 +195,7 @@
             <a href="tel:+79024895024" class="hover:text-gray-300">+7 (902) 489-50-24</a>
             <a href="https://t.me/grishina_style" target="_blank" class="hover:text-gray-300">Связаться с курирующим мастером</a>
         </div>
-        <div class="text-sm opacity-60">© 2026 ЧОУ ДПО «Тихоокеанский институт дополнительного образования»</div>
+        <div class="text-sm opacity-60">©2026 ЧОУ ДПО «Тихоокеанский институт дополнительного образования»</div>
     </div>
 </footer>
 
@@ -200,16 +205,10 @@
         const phone = document.getElementById('phone').value || 'Не указано';
         const email = document.getElementById('email').value || 'Не указано';
 
-        const message = `Новая заявка с сайта!\n\n` +
-                        `Имя: ${name}\n` +
-                        `Телефон: ${phone}\n` +
-                        `Email: ${email}\n\n` +
-                        `Источник: Сайт "Парикмахер универсал 3 разряда"`;
+        const message = `Новая заявка с сайта!\n\nИмя: ${name}\nТелефон: ${phone}\nEmail: ${email}\n\nИсточник: Сайт "Парикмахер универсал 3 разряда"`;
 
-        const encoded = encodeURIComponent(message);
-        window.open(`https://t.me/grishina_style?text=${encoded}`, '_blank');
-
-        alert('✅ Заявка отправлена! Курирующий преподаватель свяжется с вами в ближайшее время.');
+        window.open(`https://t.me/grishina_style?text=${encodeURIComponent(message)}`, '_blank');
+        alert('✅ Заявка отправлена!');
     }
 </script>
 </body>
