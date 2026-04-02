@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Обучение на Парикмахера универсала 3 разряда</title>
-    <!-- Иконки для iPhone и Safari (максимальная совместимость) -->
     <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="shortcut icon" href="/favicon.ico" />
@@ -16,24 +15,24 @@
     <script src="https://cdn.tailwindcss.com"></script>
     
     <style>
-        @import src="2.jpg";
         body { 
             font-family: 'Inter', sans-serif; 
             background-color: #f8f8f8;
         }
         
+        /* Исправлен синтаксис подключения фонового изображения */
         .hero-bg {
-            background-image: src="2.jpg";
+            background-image: url('1.jpg');
             background-size: cover;
             background-position: center;
         }
 
-        /* Базовые стили кнопок */
+        /* Базовые стили кнопок для плавности */
         .btn {
-            transition: all 0.2s ease;
+            transition: all 0.3s ease;
         }
 
-        /* Зелёный цвет при нажатии */
+        /* Зелёный цвет и эффект нажатия (тап) */
         .btn-active {
             background-color: #0f766e !important;
             color: white !important;
@@ -43,20 +42,18 @@
 </head>
 <body class="text-gray-900">
 
-<!-- ШАПКА -->
 <header class="bg-white shadow-sm sticky top-0 z-50">
     <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
         <div class="text-2xl font-bold">ЧОУ ДПО «Тихоокеанский институт»</div>
         
-        <a href="https://t.me/grishina_style" target="_blank"
-           class="bg-white hover:bg-black text-white px-8 py-3.5 rounded-full font-semibold text-base 
+        <a href="https://t.me/grishina_style?text=Добрый%20день,%20хочу%20записаться%20на%20курс%20обучения,%20подскажите%20пожалуйста%20подробности%20и%20ближайшую%20дату%20начала%20обучения,%20спасибо!" target="_blank"
+           class="btn bg-black hover:bg-[#0f766e] text-white px-8 py-3.5 rounded-full font-semibold text-base 
                   flex items-center justify-center text-center min-w-[200px] max-w-[220px]">
             Онлайн-запись
         </a>
     </div>
 </header>
 
-<!-- ГЕРОЙ -->
 <section class="hero-bg h-screen flex items-center text-white relative">
     <div class="absolute inset-0 bg-black/65"></div>
     <div class="max-w-4xl mx-auto px-6 text-center relative z-10">
@@ -66,15 +63,14 @@
         <p class="text-2xl md:text-3xl mb-10 max-w-2xl mx-auto">
             Освой профессию мастера с нуля до уверенной работы с клиентами — за 9 недель
         </p>
-        <a href="https://t.me/grishina_style" target="_blank"
-           class="btn bg-white text-black px-14 py-6 rounded-2xl text-2xl font-semibold"
+        <a href="https://t.me/grishina_style?text=Добрый%20день,%20хочу%20записаться%20на%20курс%20обучения,%20подскажите%20пожалуйста%20подробности%20и%20ближайшую%20дату%20начала%20обучения,%20спасибо!" target="_blank"
+           class="btn bg-white text-black hover:bg-[#0f766e] hover:text-white px-14 py-6 rounded-2xl text-2xl font-semibold"
            id="heroBtn">
             Записаться на курс
         </a>
     </div>
 </section>
 
-<!-- О ПРОФЕССИИ -->
 <section class="py-20 bg-white">
     <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
         <div>
@@ -84,42 +80,41 @@
                 Опытный парикмахер поможет вам научиться создавать модную форму, которая подойдёт вашему клиенту.
             </p>
         </div>
-        <img src="2.jpg" 
-             alt="Парикмахер" class="rounded-2xl shadow-xl">
+        <img src="1.jpg" 
+             alt="Парикмахер" class="rounded-2xl shadow-xl w-full object-cover">
     </div>
 </section>
 
-<!-- ПРЕИМУЩЕСТВА -->
 <section class="py-20 bg-gray-100">
     <div class="max-w-7xl mx-auto px-6">
         <h2 class="text-4xl font-bold text-center mb-16">Почему наш курс — лучший выбор</h2>
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div class="bg-white p-8 rounded-3xl card-hover">
+            <div class="bg-white p-8 rounded-3xl transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl cursor-default">
                 <div class="text-6xl mb-6">📅</div>
                 <h3 class="text-2xl font-semibold mb-3">9 недель и вы с профессией</h3>
                 <p class="text-gray-600">Самое оптимальное количество часов: теория + практика</p>
             </div>
-            <div class="bg-white p-8 rounded-3xl card-hover">
+            <div class="bg-white p-8 rounded-3xl transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl cursor-default">
                 <div class="text-6xl mb-6">📚</div>
                 <h3 class="text-2xl font-semibold mb-3">Учебно-методические материалы</h3>
                 <p class="text-gray-600">Останутся с вами по окончанию обучения</p>
             </div>
-            <div class="bg-white p-8 rounded-3xl card-hover">
+            <div class="bg-white p-8 rounded-3xl transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl cursor-default">
                 <div class="text-6xl mb-6">📆</div>
                 <h3 class="text-2xl font-semibold mb-3">9 учебных потоков в год</h3>
                 <p class="text-gray-600">Выберите удобный график</p>
             </div>
-            <div class="bg-white p-8 rounded-3xl card-hover">
+            <div class="bg-white p-8 rounded-3xl transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl cursor-default">
                 <div class="text-6xl mb-6">👩‍🏫</div>
                 <h3 class="text-2xl font-semibold mb-3">Практика с профи</h3>
                 <p class="text-gray-600">Под руководством преподавателя с 20+ летним опытом</p>
             </div>
-            <div class="bg-white p-8 rounded-3xl card-hover">
+            <div class="bg-white p-8 rounded-3xl transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl cursor-default">
                 <div class="text-6xl mb-6">✂️</div>
                 <h3 class="text-2xl font-semibold mb-3">Высококачественные материалы</h3>
                 <p class="text-gray-600">Используются на каждом занятии</p>
             </div>
-            <div class="bg-white p-8 rounded-3xl card-hover">
+            <div class="bg-white p-8 rounded-3xl transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl cursor-default">
                 <div class="text-6xl mb-6">🎓</div>
                 <h3 class="text-2xl font-semibold mb-3">Обучиться может каждый</h3>
                 <p class="text-gray-600">Достаточно 9 классов образования</p>
@@ -128,15 +123,14 @@
     </div>
 </section>
 
-<!-- СТОИМОСТЬ -->
 <section class="py-20 bg-white">
     <div class="max-w-4xl mx-auto px-6 text-center">
         <h2 class="text-5xl font-bold mb-4">Стоимость</h2>
         <div class="text-7xl font-bold text-black mb-6">110 000 ₽</div>
         <p class="text-2xl text-gray-700 mb-12">Полный курс</p>
         <div class="bg-black text-white p-10 rounded-3xl max-w-md mx-auto">
-            <p class="text-xl leading-relaxed">
-                В стоимость включено:<br>
+            <p class="text-xl leading-relaxed text-left">
+                В стоимость включено:<br><br>
                 • Свидетельство о профессии<br>
                 • Все расходные материалы<br>
                 • Всё необходимое для старта
@@ -145,7 +139,6 @@
     </div>
 </section>
 
-<!-- ФОРМА -->
 <section class="py-20 bg-black text-white">
     <div class="max-w-2xl mx-auto px-6 text-center">
         <h2 class="text-4xl font-bold mb-4">Онлайн быстрее</h2>
@@ -159,7 +152,7 @@
             <input type="email" id="email" placeholder="Электронная почта" 
                    class="w-full px-8 py-5 bg-white/10 border border-white/30 rounded-2xl text-lg focus:outline-none text-white placeholder-gray-400">
             <button type="button" onclick="sendToTelegram()"
-                    class="bg-black text-white w-full py-6 rounded-2xl text-2xl font-semibold"
+                    class="btn bg-white text-black hover:bg-[#0f766e] hover:text-white w-full py-6 rounded-2xl text-2xl font-semibold"
                     id="formBtn">
                 Оставить заявку
             </button>
@@ -168,13 +161,13 @@
     </div>
 </section>
 
-<!-- ФУТЕР -->
 <footer class="bg-[#111111] text-white py-16">
     <div class="max-w-7xl mx-auto px-6 text-center">
         <div class="text-2xl font-bold mb-8">ЧОУ ДПО «Тихоокеанский институт дополнительного образования»</div>
         <div class="flex flex-col md:flex-row justify-center gap-8 text-lg mb-12">
-            <a href="tel:+79024895024" class="hover:text-gray-300">+7 (902) 489-50-24</a>
-            <a href="https://t.me/grishina_style" target="_blank" class="hover:text-gray-300">Связаться с курирующим мастером</a>
+            <a href="tel:+79024895024" class="hover:text-gray-300 transition-colors">+7 (902) 489-50-24</a>
+            <a href="https://t.me/grishina_style?text=Добрый%20день,%20хочу%20записаться%20на%20курс%20обучения,%20подскажите%20пожалуйста%20подробности%20и%20ближайшую%20дату%20начала%20обучения,%20спасибо!" 
+               target="_blank" class="hover:text-gray-300 transition-colors">Связаться с курирующим мастером</a>
         </div>
         <div class="text-sm opacity-60">©2026 ЧОУ ДПО «Тихоокеанский институт дополнительного образования»</div>
     </div>
@@ -186,13 +179,14 @@
         const phone = document.getElementById('phone').value || 'Не указано';
         const email = document.getElementById('email').value || 'Не указано';
 
-        const message = `Новая заявка!\nИмя: ${name}\nТелефон: ${phone}\nEmail: ${email}`;
+        // Формируем сообщение, которое отправится через форму
+        const message = `Новая заявка!\nИмя: ${name}\nТелефон: ${phone}\nEmail: ${email}\n\nДобрый день, хочу записаться на курс обучения, подскажите пожалуйста подробности и ближайшую дату начала обучения, спасибо!`;
 
         window.open(`https://t.me/grishina_style?text=${encodeURIComponent(message)}`, '_blank');
         alert('✅ Заявка отправлена!');
     }
 
-    // Надёжный JavaScript для нажатия кнопок
+    // Надёжный JavaScript для нажатия кнопок (добавляет класс btn-active)
     function makeButtonPressable(btn) {
         if (!btn) return;
 
@@ -209,19 +203,12 @@
         });
     }
 
-    // Применяем ко всем кнопкам
+    // Применяем ко всем кнопкам, имеющим класс btn
     window.addEventListener('load', () => {
-        const buttons = document.querySelectorAll('a, button');
+        const buttons = document.querySelectorAll('.btn');
         buttons.forEach(btn => makeButtonPressable(btn));
     });
 </script>
 
-<style>
-    .btn-active {
-        background-color: #0f766e !important;
-        color: white !important;
-        transform: scale(0.94) !important;
-    }
-</style>
 </body>
 </html>
