@@ -270,14 +270,34 @@ function closeDownloadModal() { document.getElementById('passwordModal').classLi
 
 function checkPasswordAndDownload() {
     const pass = document.getElementById('zipPassword').value;
-    if(pass === '123456') {
-        alert('Пароль верен! Скачивание начнется сейчас.');
-        window.location.href = 'parikmaher.zip'; // Файл должен лежать в той же папке
+    const fileUrl = 'parikmaher.zip'; // Путь к твоему файлу
+
+    if (pass === '123456') {
+        // 1. Создаем временный элемент ссылки
+        const link = document.createElement('a');
+        
+        // 2. Указываем путь к файлу
+        link.href = fileUrl;
+        
+        // 3. Добавляем атрибут download (подсказка браузеру именно скачать)
+        link.setAttribute('download', 'parikmaher.zip');
+        
+        // 4. Обязательно добавляем в DOM (невидимо), чтобы сработало в некоторых браузерах
+        document.body.appendChild(link);
+        
+        // 5. Имитируем клик
+        link.click();
+        
+        // 6. Удаляем временный элемент
+        document.body.removeChild(link);
+        
+        alert('Пароль верен! Скачивание началось.');
         closeDownloadModal();
     } else {
         alert('Неверный пароль!');
     }
 }
+
 
 // --- ЛОГИКА КАЛЬКУЛЯТОРА ---
 const pRange = document.getElementById('priceRange');
