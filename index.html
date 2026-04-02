@@ -229,38 +229,56 @@ const dates = [
 ];
 
 function updateTimer() {
-    // Получаем текущее время во Владивостоке
-    const now = new Date(new Intl.DateTimeFormat('en-US', {
-        timeZone: 'Asia/Vladivostok'
-    }).format(new Date()));
+    const dates = [
+        "2026-04-13", "2026-05-18", "2026-06-22", "2026-07-27", 
+        "2026-08-31", "2026-10-05", "2026-11-09"
+    ];
+
+    // 1. Получаем текущее время (в миллисекундах)
+    const now = new Date().getTime();
     
-    let targetDate = null;
+    let targetDateMs = null;
 
     for (let d of dates) {
-        let t = new Date(d + "T00:00:00");
+        // Создаем дату начала курса в 10:00 утра по Владивостоку (UTC+10)
+        // Формат ISO с указанием смещения +10:00 делает расчеты точными везде
+        let t = new Date(`${d}T10:00:00+10:00`).getTime();
+        
         if (t > now) {
-            targetDate = t;
+            targetDateMs = t;
             break;
         }
     }
 
-    if (!targetDate) return;
+    if (!targetDateMs) {
+        document.getElementById('countdown').innerText = "Набор завершен";
+        return;
+    }
 
-    const diff = targetDate - now;
+    // 2. Считаем чистую разницу в мс
+    const diff = targetDateMs - now;
+
+    // 3. Математически точный расчет остатка
     const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-    const mins = Math.floor((diff / 1000 / 60) % 60);
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+
+    // Добавляем ведущие нули для красоты (05ч вместо 5ч)
+    const hDisplay = hours < 10 ? '0' + hours : hours;
+    const mDisplay = mins < 10 ? '0' + mins : mins;
 
     const timerElement = document.getElementById('countdown');
-    timerElement.innerText = `${days}д ${hours}ч ${mins}м`;
+    timerElement.innerText = `${days}д ${hDisplay}ч ${mDisplay}м`;
 
-    // Если меньше 3 дней — красим в красный
+    // Подсветка (меньше 3 дней)
     if (days < 3) {
         timerElement.style.color = "#ff4d4d";
     } else {
         timerElement.style.color = "white";
     }
 }
+
+// Обновляем каждую минуту
 setInterval(updateTimer, 60000);
 updateTimer();
 
