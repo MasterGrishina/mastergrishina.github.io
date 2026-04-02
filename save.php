@@ -1,39 +1,46 @@
 <?php
-// --- НАСТРОЙКИ БОТА ---
-$botToken = "8311275670:AAE0k-zKrHvdbYMCsQSt1jdBuPjliZdn2pM"; 
-$chatId = "115568740"; 
-// -----------------------
+// 1. Устанавливаем кодировку, чтобы русский текст не стал "кракозябрами"
+header('Content-Type: text/html; charset=utf-8');
 
-$name = $_POST['name'] ?? 'Не указано';
-$phone = $_POST['phone'] ?? 'Не указано';
-$email = $_POST['email'] ?? 'Не указано';
-$date = date('d.m.Y H:i');
+// 2. Проверяем, что данные пришли методом POST
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    
+    // Получаем данные из полей (используем те же ключи, что в JS FormData)
+    $name  = isset($_POST['name']) ? trim($_POST['name']) : '';
+    $phone = isset($_POST['phone']) ? trim($_POST['phone']) : '';
+    $email = isset($_POST['email']) ? trim($_POST['email']) : '';
+    $date  = date('d.m.Y H:i:s'); // Время заявки
 
-// 1. СОХРАНЕНИЕ В CSV
-$filename = 'contacts.csv';
-$file = fopen($filename, 'a');
+    // Если имя или телефон пустые — не сохраняем
+    if (empty($name) || empty($phone)) {
+        http_response_code(400);
+        echo "Ошибка: Имя и телефон обязательны";
+        exit;
+    }
 
-// Если файл пустой, добавим заголовки
-if (filesize($filename) == 0) {
-    fputs($file, chr(0xEF) . chr(0xBB) . chr(0xBF)); // UTF-8 BOM для Excel
-    fputcsv($file, array('Дата', 'Имя', 'Телефон', 'Email'), ';');
+    // 3. Подготовка строки для CSV
+    // Используем точку с запятой ";" как разделитель (удобно для Excel)
+    $dataLine = [$date, $name, $phone, $email];
+
+    // 4. Запись в файл
+    // 'a' — режим дозаписи в конец файла. Если файла нет, PHP попробует его создать.
+    $f = fopen('contacts.csv', 'a');
+    
+    if ($f) {
+        // fputcsv автоматически обработает кавычки и спецсимволы
+        fputcsv($f, $dataLine, ';');
+        fclose($f);
+        
+        http_response_code(200);
+        echo "Заявка успешно сохранена в CSV";
+    } else {
+        // Если файл не открылся (проблема с правами доступа на сервере)
+        http_response_code(500);
+        echo "Ошибка: Не удалось открыть файл для записи. Проверьте права папки (777/755).";
+    }
+} else {
+    // Если кто-то просто зашел на save.php через браузер
+    http_response_code(405);
+    echo "Метод не разрешен";
 }
-
-fputcsv($file, array($date, $name, $phone, $email), ';');
-fclose($file);
-
-// 2. ОТПРАВКА В TELEGRAM
-$text = "🔔 Новая заявка с сайта!\n\n";
-$text .= "📅 Дата: $date\n";
-$text .= "👤 Имя: $name\n";
-$text .= "📞 Тел: $phone\n";
-$text .= "✉️ Email: $email\n\n";
-$text .= "Добрый день, хочу записаться на курс обучения, подскажите пожалуйста подробности и ближайшую дату начала обучения, спасибо!";
-
-$url = "https://api.telegram.org/bot{$botToken}/sendMessage?chat_id={$chatId}&text=" . urlencode($text);
-
-// Выполняем запрос к Telegram
-file_get_contents($url);
-
-echo "success";
 ?>
