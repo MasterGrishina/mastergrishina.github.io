@@ -1,64 +1,36 @@
-const CACHE_NAME = 'parikmaher-pwa-v1';
-const urlsToCache = [
-    '/',
-    '/index.html',
-    '/photo.jpg',
-    '/slide1.jpg',
-    '/slide2.jpg',
-    '/slide3.jpg',
-    '/slide4.jpg',
-    '/apple-touch-icon.png',
-    '/icon-192.png',
-    '/icon-512.png'
-];
+// sw.js — минимальная версия для push-уведомлений
 
-// Установка Service Worker + кэширование
+const CACHE_NAME = 'parikmaher-pwa-v2';
+
 self.addEventListener('install', event => {
-    event.waitUntil(
-        caches.open(CACHE_NAME)
-            .then(cache => {
-                console.log('Кэш открыт');
-                return cache.addAll(urlsToCache);
-            })
-    );
+    console.log('Service Worker установлен');
+    self.skipWaiting(); // сразу активировать
 });
 
-// Стратегия кэш-first для быстрой работы
-self.addEventListener('fetch', event => {
-    event.respondWith(
-        caches.match(event.request)
-            .then(response => {
-                return response || fetch(event.request);
-            })
-    );
+self.addEventListener('activate', event => {
+    console.log('Service Worker активирован');
+    event.waitUntil(self.clients.claim());
 });
 
 // Обработка push-уведомлений
 self.addEventListener('push', event => {
-    const data = event.data.json();
-    
+    const data = event.data ? event.data.json() : { title: 'Уведомление', body: 'Новое сообщение' };
+
     const options = {
-        body: data.body || 'Новое сообщение от Анастасии Гришиной',
-        icon: '/icon-192.png',
-        badge: '/icon-192.png',
-        vibrate: [200, 100, 200],
-        data: {
-            url: data.url || '/index.html'
-        }
+        body: data.body,
+        icon: '/web-app-manifest-192x192.png',
+        badge: '/web-app-manifest-192x192.png',
+        vibrate: [200, 100, 200]
     };
 
     event.waitUntil(
-        self.registration.showNotification(
-            data.title || 'Курс парикмахера', 
-            options
-        )
+        self.registration.showNotification(data.title || 'Курс парикмахера', options)
     );
 });
 
-// Клик по уведомлению — открывает сайт
 self.addEventListener('notificationclick', event => {
     event.notification.close();
     event.waitUntil(
-        clients.openWindow(event.notification.data.url)
+        clients.openWindow('/')
     );
 });
