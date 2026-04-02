@@ -1,7 +1,7 @@
 <?php
 // --- НАСТРОЙКИ БОТА ---
-$botToken = "ВАШ_API_КЛЮЧ_БОТА"; 
-$chatId = "ВАШ_CHAT_ID"; 
+$botToken = "8311275670:AAE0k-zKrHvdbYMCsQSt1jdBuPjliZdn2pM"; 
+$chatId = "115568740"; 
 // -----------------------
 
 $name = $_POST['name'] ?? 'Не указано';
