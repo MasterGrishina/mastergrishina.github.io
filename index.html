@@ -20,46 +20,31 @@
             background-position: center;
         }
 
-        /* Чёрная кнопка — при нажатии становится мягким зелёным */
-        .main-btn {
+        /* Простой и надёжный вариант для кнопок */
+        .btn {
+            transition: all 0.25s ease;
+        }
+        
+        .btn-black {
             background-color: #111111;
             color: white;
-            padding: 14px 40px;
-            border-radius: 9999px;
-            font-weight: 600;
-            font-size: 1.05rem;
-            transition: all 0.25s ease;
-            user-select: none;
-            touch-action: manipulation;
         }
         
-        .main-btn:active {
-            background-color: #0f766e !important;
-            color: white !important;
-            transform: scale(0.93) !important;
+        .btn-black:active {
+            background-color: #0f766e;
+            transform: scale(0.95);
         }
-
-        /* Кнопка в герое */
-        .hero-btn {
+        
+        .btn-white {
             background-color: white;
             color: #111111;
-            padding: 16px 48px;
-            border-radius: 9999px;
-            font-weight: 600;
-            font-size: 1.25rem;
-            transition: all 0.25s ease;
-            user-select: none;
-            touch-action: manipulation;
         }
         
-        .hero-btn:active {
-            background-color: #0f766e !important;
-            color: white !important;
-            transform: scale(0.93) !important;
+        .btn-white:active {
+            background-color: #0f766e;
+            color: white;
+            transform: scale(0.95);
         }
-
-        .card-hover { transition: all 0.3s ease; }
-        .card-hover:hover { transform: translateY(-8px); }
     </style>
 </head>
 <body class="text-gray-900">
@@ -70,7 +55,7 @@
         <div class="text-2xl font-bold">ЧОУ ДПО «Тихоокеанский институт»</div>
         
         <a href="https://t.me/grishina_style" target="_blank"
-           class="main-btn">
+           class="btn btn-black px-10 py-3.5 rounded-full font-semibold text-base">
             Онлайн-запись
         </a>
     </div>
@@ -87,7 +72,7 @@
             Освой профессию мастера с нуля до уверенной работы с клиентами — за 9 недель
         </p>
         <a href="https://t.me/grishina_style" target="_blank"
-           class="hero-btn">
+           class="btn btn-white inline-block px-14 py-6 rounded-2xl text-2xl font-semibold">
             Записаться на курс
         </a>
     </div>
@@ -204,7 +189,7 @@
         const phone = document.getElementById('phone').value || 'Не указано';
         const email = document.getElementById('email').value || 'Не указано';
 
-        const message = `Новая заявка с сайта!\n\nИмя: ${name}\nТелефон: ${phone}\nEmail: ${email}`;
+        const message = `Новая заявка!\nИмя: ${name}\nТелефон: ${phone}\nEmail: ${email}`;
 
         window.open(`https://t.me/grishina_style?text=${encodeURIComponent(message)}`, '_blank');
         alert('✅ Заявка отправлена!');
