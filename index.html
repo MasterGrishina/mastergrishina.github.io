@@ -5,13 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Парикмахер универсал 3 разряда | Анастасия Гришина</title>
     
-    <!-- Иконки (как на первом сайте) -->
+    <!-- Иконки -->
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-    <link rel="icon" href="/icon-192.png" type="image/png">
+    <link rel="icon" href="/web-app-manifest-192x192.png" type="image/png">
     <meta name="theme-color" content="#111111">
     
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="icon" href="https://274418.selcdn.ru/cv08300-33250f0d-0664-43fc-9dbf-9d89738d114e/images/62828/f44bc6a9bb0214239dba6cb2fa2c4db7.ico" type="image/x-icon">
     
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
@@ -29,14 +28,33 @@
         .card-hover { transition: all 0.3s ease; }
         .card-hover:hover { transform: translateY(-8px); }
         
+        /* Основные кнопки */
         .black-btn {
             background-color: #111111;
             color: white;
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
         }
+        
+        /* При нажатии меняется на мягкий зелёный */
+        .black-btn:active {
+            background-color: #0f766e;
+            transform: scale(0.97);
+        }
+        
         .black-btn:hover {
             background-color: #222222;
-            transform: translateY(-2px);
+        }
+        
+        /* Кнопка в герое */
+        .hero-btn {
+            background-color: white;
+            color: #111111;
+            transition: all 0.4s ease;
+        }
+        .hero-btn:active {
+            background-color: #0f766e;
+            color: white;
+            transform: scale(0.97);
         }
     </style>
 </head>
@@ -46,6 +64,7 @@
 <header class="bg-white shadow-sm sticky top-0 z-50">
     <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
         <div class="text-2xl font-bold">ЧОУ ДПО «Тихоокеанский институт»</div>
+        
         <a href="https://t.me/grishina_style" target="_blank"
            class="black-btn px-10 py-3.5 rounded-full font-semibold text-base">
             Онлайн-запись
@@ -55,7 +74,7 @@
 
 <!-- ГЕРОЙ -->
 <section class="hero-bg h-screen flex items-center text-white relative">
-    <div class="absolute inset-0 bg-black/60"></div>
+    <div class="absolute inset-0 bg-black/65"></div>
     <div class="max-w-4xl mx-auto px-6 text-center relative z-10">
         <h1 class="text-5xl md:text-7xl font-bold leading-tight mb-6">
             Парикмахер<br>универсал 3 разряда
@@ -64,7 +83,7 @@
             Освой профессию мастера с нуля до уверенной работы с клиентами — за 9 недель
         </p>
         <a href="https://t.me/grishina_style" target="_blank"
-           class="black-btn inline-block px-14 py-6 rounded-2xl text-2xl font-semibold">
+           class="hero-btn inline-block px-14 py-6 rounded-2xl text-2xl font-semibold">
             Записаться на курс
         </a>
     </div>
@@ -145,7 +164,7 @@
 <section class="py-20 bg-black text-white">
     <div class="max-w-2xl mx-auto px-6 text-center">
         <h2 class="text-4xl font-bold mb-4">Онлайн быстрее</h2>
-        <p class="text-xl mb-10">Оставьте заявку — свяжемся с вами в течение часа</p>
+        <p class="text-xl mb-10">Оставьте заявку — свяжемся с вами в течение 24 часов</p>
         
         <form id="form" class="space-y-6">
             <input type="text" id="name" placeholder="Ваше имя" 
@@ -155,7 +174,7 @@
             <input type="email" id="email" placeholder="Электронная почта" 
                    class="w-full px-8 py-5 bg-white/10 border border-white/30 rounded-2xl text-lg focus:outline-none text-white placeholder-gray-400">
             <button type="button" onclick="sendToTelegram()"
-                    class="w-full bg-white text-black py-6 rounded-2xl text-2xl font-semibold hover:bg-gray-200 transition">
+                    class="black-btn w-full py-6 rounded-2xl text-2xl font-semibold">
                 Оставить заявку
             </button>
         </form>
@@ -171,7 +190,7 @@
             <a href="tel:+79024895024" class="hover:text-gray-300">+7 (902) 489-50-24</a>
             <a href="https://t.me/grishina_style" target="_blank" class="hover:text-gray-300">Связаться с курирующим мастером</a>
         </div>
-        <div class="text-sm opacity-60">© ЧОУ ДПО «Тихоокеанский институт дополнительного образования»</div>
+        <div class="text-sm opacity-60">© 2026 ЧОУ ДПО «Тихоокеанский институт дополнительного образования»</div>
     </div>
 </footer>
 
@@ -190,7 +209,7 @@
         const encoded = encodeURIComponent(message);
         window.open(`https://t.me/grishina_style?text=${encoded}`, '_blank');
 
-        alert('✅ Заявка отправлена! Анастасия свяжется с вами в ближайшее время.');
+        alert('✅ Заявка отправлена! Курирующий преподаватель свяжется с вами в ближайшее время.');
     }
 </script>
 </body>
