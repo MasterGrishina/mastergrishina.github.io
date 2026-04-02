@@ -1,39 +1,39 @@
 <?php
-// Этот файл принимает данные из формы и сохраняет их в CSV (Excel) таблицу
+// --- НАСТРОЙКИ БОТА ---
+$botToken = "ВАШ_API_КЛЮЧ_БОТА"; 
+$chatId = "ВАШ_CHAT_ID"; 
+// -----------------------
 
-// 1. Получаем данные (если поле пустое, пишем "Не указано")
-$name = isset($_POST['name']) ? $_POST['name'] : 'Не указано';
-$phone = isset($_POST['phone']) ? $_POST['phone'] : 'Не указано';
-$email = isset($_POST['email']) ? $_POST['email'] : 'Не указано';
+$name = $_POST['name'] ?? 'Не указано';
+$phone = $_POST['phone'] ?? 'Не указано';
+$email = $_POST['email'] ?? 'Не указано';
+$date = date('d.m.Y H:i');
 
-// Добавляем текущую дату и время
-$date = date('Y-m-d H:i:s');
-
-// 2. Название файла, в который будем сохранять (создастся автоматически)
-$filename = 'zayavki.csv';
-
-// Проверяем, существует ли уже файл (чтобы понять, нужно ли писать заголовки таблицы)
-$file_exists = file_exists($filename);
-
-// 3. Открываем файл в режиме добавления ('a' - append)
+// 1. СОХРАНЕНИЕ В CSV
+$filename = 'contacts.csv';
 $file = fopen($filename, 'a');
 
-// Если файла не было, сначала добавим специальный код (BOM), чтобы русские буквы в Excel не сломались
-// и добавим заголовки колонок.
-if (!$file_exists) {
-    fputs($file, chr(0xEF) . chr(0xBB) . chr(0xBF)); // BOM для UTF-8
-    fputcsv($file, array('Дата', 'Имя', 'Телефон', 'Email'), ';'); // Заголовки (используем точку с запятой)
+// Если файл пустой, добавим заголовки
+if (filesize($filename) == 0) {
+    fputs($file, chr(0xEF) . chr(0xBB) . chr(0xBF)); // UTF-8 BOM для Excel
+    fputcsv($file, array('Дата', 'Имя', 'Телефон', 'Email'), ';');
 }
 
-// 4. Формируем массив с данными текущей заявки
-$data = array($date, $name, $phone, $email);
-
-// Записываем строчку в файл (разделитель - точка с запятой для корректного открытия в Excel)
-fputcsv($file, $data, ';');
-
-// 5. Закрываем файл
+fputcsv($file, array($date, $name, $phone, $email), ';');
 fclose($file);
 
-// Отвечаем браузеру, что все прошло успешно
+// 2. ОТПРАВКА В TELEGRAM
+$text = "🔔 Новая заявка с сайта!\n\n";
+$text .= "📅 Дата: $date\n";
+$text .= "👤 Имя: $name\n";
+$text .= "📞 Тел: $phone\n";
+$text .= "✉️ Email: $email\n\n";
+$text .= "Добрый день, хочу записаться на курс обучения, подскажите пожалуйста подробности и ближайшую дату начала обучения, спасибо!";
+
+$url = "https://api.telegram.org/bot{$botToken}/sendMessage?chat_id={$chatId}&text=" . urlencode($text);
+
+// Выполняем запрос к Telegram
+file_get_contents($url);
+
 echo "success";
 ?>
