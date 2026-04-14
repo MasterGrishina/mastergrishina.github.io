@@ -30,12 +30,10 @@
             background-position: center;
         }
 
-        /* Плавность для всех кнопок */
         .btn {
             transition: all 0.3s ease;
         }
 
-        /* Эффект нажатия (активное состояние) */
         .btn-active {
             background-color: #0f766e !important;
             color: white !important;
@@ -73,7 +71,8 @@
         <p class="text-xl md:text-3xl mb-10 max-w-2xl mx-auto opacity-90">
             Освой профессию мастера с нуля до уверенной работы с клиентами — за 9 недель
         </p>
-        <a href="#form-section"
+        <a href="https://max.ru/u/f9LHodD0cOLKf1Xo5KN96NlkaKKb4LmHvKcTpF4IMKcDRor2DSQR45mErI0?text=Добрый%20день,%20хочу%20записаться%20на%20курс%20обучения"
+           target="_blank"
            class="btn bg-white text-black hover:bg-[#0f766e] hover:text-white px-10 py-5 md:px-14 md:py-6 rounded-2xl text-xl md:text-2xl font-semibold inline-block">
             Записаться на курс
         </a>
@@ -197,94 +196,55 @@
 </footer>
 
 <script>
-    // Главная функция отправки
-    // --- ЛОГИКА ТАЙМЕРА (Владивосток) ---
 const dates = [
     "2026-04-13", "2026-05-18", "2026-06-22", "2026-07-27", 
     "2026-08-31", "2026-10-05", "2026-11-09"
 ];
 
 function updateTimer() {
-    const dates = [
-        "2026-04-13", "2026-05-18", "2026-06-22", "2026-07-27", 
-        "2026-08-31", "2026-10-05", "2026-11-09"
-    ];
-
-    // 1. Получаем текущее время (в миллисекундах)
     const now = new Date().getTime();
-    
     let targetDateMs = null;
-
     for (let d of dates) {
-        // Создаем дату начала курса в 10:00 утра по Владивостоку (UTC+10)
-        // Формат ISO с указанием смещения +10:00 делает расчеты точными везде
         let t = new Date(`${d}T10:00:00+10:00`).getTime();
-        
         if (t > now) {
             targetDateMs = t;
             break;
         }
     }
-
     if (!targetDateMs) {
         document.getElementById('countdown').innerText = "Набор завершен";
         return;
     }
-
-    // 2. Считаем чистую разницу в мс
     const diff = targetDateMs - now;
-
-    // 3. Математически точный расчет остатка
     const days = Math.floor(diff / (1000 * 60 * 60 * 24));
     const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-
-    // Добавляем ведущие нули для красоты (05ч вместо 5ч)
     const hDisplay = hours < 10 ? '0' + hours : hours;
     const mDisplay = mins < 10 ? '0' + mins : mins;
-
     const timerElement = document.getElementById('countdown');
     timerElement.innerText = `${days}д ${hDisplay}ч ${mDisplay}м`;
-
-    // Подсветка (меньше 3 дней)
     if (days < 3) {
         timerElement.style.color = "#ff4d4d";
     } else {
         timerElement.style.color = "white";
     }
 }
-
-// Обновляем каждую минуту
 setInterval(updateTimer, 60000);
 updateTimer();
 
-// --- ЛОГИКА СКАЧИВАНИЯ ---
 function openDownloadModal() { document.getElementById('passwordModal').classList.remove('hidden'); }
 function closeDownloadModal() { document.getElementById('passwordModal').classList.add('hidden'); }
 
 function checkPasswordAndDownload() {
     const pass = document.getElementById('zipPassword').value;
-    const fileUrl = 'parikmaher.zip'; // Путь к твоему файлу
-
+    const fileUrl = 'parikmaher.zip';
     if (pass === '123456') {
-        // 1. Создаем временный элемент ссылки
         const link = document.createElement('a');
-        
-        // 2. Указываем путь к файлу
         link.href = fileUrl;
-        
-        // 3. Добавляем атрибут download (подсказка браузеру именно скачать)
         link.setAttribute('download', 'parikmaher.zip');
-        
-        // 4. Обязательно добавляем в DOM (невидимо), чтобы сработало в некоторых браузерах
         document.body.appendChild(link);
-        
-        // 5. Имитируем клик
         link.click();
-        
-        // 6. Удаляем временный элемент
         document.body.removeChild(link);
-        
         alert('Пароль верен! Скачивание началось.');
         closeDownloadModal();
     } else {
@@ -292,17 +252,13 @@ function checkPasswordAndDownload() {
     }
 }
 
-
-// --- ЛОГИКА КАЛЬКУЛЯТОРА ---
 const pRange = document.getElementById('priceRange');
 const cRange = document.getElementById('clientRange');
-
 function calcROI() {
     const price = pRange.value;
     const clients = cRange.value;
     document.getElementById('priceVal').innerText = price;
     document.getElementById('clientVal').innerText = clients;
-    
     const dailyEarn = price * clients;
     const days = Math.ceil(110000 / dailyEarn);
     document.getElementById('paybackResult').innerText = days;
@@ -310,76 +266,15 @@ function calcROI() {
 pRange.addEventListener('input', calcROI);
 cRange.addEventListener('input', calcROI);
 
-// --- ЛОГИКА КОЛЕСА ---
-let isSpinning = false;
-function spinWheel() {
-    if (isSpinning) return;
-    isSpinning = true;
-    const wheel = document.getElementById('wheel');
-    const randomDegrees = Math.floor(Math.random() * 360) + 3600; // Минимум 10 оборотов
-    wheel.style.transform = `rotate(${randomDegrees}deg)`;
-    
-    setTimeout(() => {
-        alert('Поздравляем! Сделайте скриншот этого результата и прикрепите к заявке, чтобы получить бонус!');
-        isSpinning = false;
-    }, 4500);
+function initButtons() {
+    const buttons = document.querySelectorAll('.btn');
+    buttons.forEach(btn => {
+        btn.addEventListener('pointerdown', () => btn.classList.add('btn-active'));
+        btn.addEventListener('pointerup', () => btn.classList.remove('btn-active'));
+        btn.addEventListener('pointerleave', () => btn.classList.remove('btn-active'));
+    });
 }
-
-    async function sendOrder() {
-        const btn = document.getElementById('formBtn');
-        const name = document.getElementById('name').value;
-        const phone = document.getElementById('phone').value;
-        const email = document.getElementById('email').value;
-
-        // Простая валидация
-        if(!name || !phone) {
-            alert('Пожалуйста, укажите ваше имя и контактный телефон');
-            return;
-        }
-
-        // Визуальный отклик
-        btn.disabled = true;
-        btn.innerText = 'Отправляем данные...';
-
-        try {
-            let formData = new FormData();
-            formData.append('name', name);
-            formData.append('phone', phone);
-            formData.append('email', email);
-
-            // Отправка в PHP для записи в CSV и Telegram
-            const response = await fetch('save.php', {
-                method: 'POST',
-                body: formData
-            });
-
-            if (response.ok) {
-                alert('✅ Заявка успешно отправлена! Мастер скоро свяжется с вами.');
-                document.getElementById('orderForm').reset();
-            } else {
-                throw new Error('Ошибка сервера');
-            }
-        } catch (error) {
-            alert('❌ Произошла ошибка. Пожалуйста, попробуйте позже или напишите нам напрямую.');
-            console.error(error);
-        } finally {
-            btn.disabled = false;
-            btn.innerText = 'Оставить заявку';
-        }
-    }
-
-    // Обработка эффектов нажатия для всех кнопок
-    function initButtons() {
-        const buttons = document.querySelectorAll('.btn');
-        buttons.forEach(btn => {
-            btn.addEventListener('pointerdown', () => btn.classList.add('btn-active'));
-            btn.addEventListener('pointerup', () => btn.classList.remove('btn-active'));
-            btn.addEventListener('pointerleave', () => btn.classList.remove('btn-active'));
-        });
-    }
-
-    window.addEventListener('load', initButtons);
+window.addEventListener('load', initButtons);
 </script>
-
 </body>
 </html>
